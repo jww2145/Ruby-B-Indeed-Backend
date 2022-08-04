@@ -7,6 +7,20 @@ class ApplicationController < Sinatra::Base
     { message: "Good luck with your project!" }.to_json
   end
 
+  #get for locations 
+
+  get "/locations" do 
+    Location.all.to_json
+  end
+
+  get "/companies" do 
+    Company.all.to_json
+  end
+
+  get "/listings" do
+    Listing.all.to_json(include: [:company, :location])
+  end
+
 
 
 
