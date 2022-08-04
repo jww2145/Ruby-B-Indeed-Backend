@@ -1,9 +1,6 @@
 require 'sinatra'
 
 class ApplicationController < Sinatra::Base
-  require 'nokogiri'
-  require 'httparty'
-  require 'byebug'
   
   set :default_content_type, 'application/json'
   
@@ -12,22 +9,24 @@ class ApplicationController < Sinatra::Base
     { message: "Good luck with your project!" }.to_json
   end
 
-  delete '/favorites/:id' do
-    deletedJob = Favorite.find(params[:id])
-    deletedJob.destroy
-    deletedJob.to_json
+  #get for locations 
 
-
-    
+  get "/locations" do 
+    Location.all.to_json
   end
 
-  
-  
-  def scraper(url)
-      unparsed_page = HTTParty.get(url)
-      parsed_page = Nokogiri::HTML(unparsed_page)
-      byebug
+  get "/companies" do 
+    Company.all.to_json
   end
+
+  get "/listings" do
+    Listing.all.to_json(include: [:company, :location])
+  end
+
+
+
+
+
 end
 
 

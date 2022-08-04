@@ -4,7 +4,7 @@ class CreateListings < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :description 
       t.integer :company_id
-      t.integer :city_id
+      t.integer :location_id
     end
   end
 end
