@@ -1,3 +1,5 @@
+require 'sinatra'
+
 class ApplicationController < Sinatra::Base
   require 'nokogiri'
   require 'httparty'
@@ -9,6 +11,17 @@ class ApplicationController < Sinatra::Base
   get "/" do
     { message: "Good luck with your project!" }.to_json
   end
+
+  delete '/favorites/:id' do
+    deletedJob = Favorite.find(params[:id])
+    deletedJob.destroy
+    deletedJob.to_json
+
+
+    
+  end
+
+  
   
   def scraper(url)
       unparsed_page = HTTParty.get(url)
