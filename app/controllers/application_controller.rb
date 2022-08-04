@@ -1,7 +1,4 @@
 class ApplicationController < Sinatra::Base
-  require 'nokogiri'
-  require 'httparty'
-  require 'byebug'
   
   set :default_content_type, 'application/json'
   
@@ -9,12 +6,11 @@ class ApplicationController < Sinatra::Base
   get "/" do
     { message: "Good luck with your project!" }.to_json
   end
-  
-  def scraper(url)
-      unparsed_page = HTTParty.get(url)
-      parsed_page = Nokogiri::HTML(unparsed_page)
-      byebug
-  end
+
+
+
+
+
 end
 
 
