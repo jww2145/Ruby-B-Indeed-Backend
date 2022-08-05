@@ -6,6 +6,10 @@ class ApplicationController < Sinatra::Base
   
 
   #get for locations 
+  get "/favorites" do
+    Favorite.all.to_json
+  end
+
 
   get "/locations" do 
     Location.all.to_json
@@ -23,10 +27,8 @@ class ApplicationController < Sinatra::Base
     begin
       found_favorite = Favorite.find(params[:listing_id])
       found_favorite.update(params)
-      if !found_favorite.liked
-        found_favorite.liked = !found_favorite.liked
-        found_favorite.save
-      end
+      found_favorite.liked = !found_favorite.liked
+      found_favorite.save
       found_favorite.to_json
     rescue
       { error: "Couldn't find that darn listing" }.to_json
