@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_04_194053) do
+ActiveRecord::Schema.define(version: 2022_08_05_134726) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string "comment"
+    t.integer "listing_id"
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string "name"

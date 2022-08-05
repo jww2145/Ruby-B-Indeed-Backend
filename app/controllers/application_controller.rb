@@ -37,6 +37,27 @@ class ApplicationController < Sinatra::Base
     Favorite.all.filter { |favorite| favorite.liked}.to_json
   end
 
+  post "/comment/:listing_id" do
+    created_comment = Comment.create(listing_id: params[:listing_id], comment: params[:comment])
+    created_comment.to_json
+  end
+
+  delete "/comment/:id" do
+    begin
+      found_comment = Comment.find(params[:id])
+      if found_comment
+        found_comment.destroy
+        {}.to_json
+      end
+    rescue
+      { error: "Couldn't find that darn comment" }.to_json
+    end
+  end
+
+  get "/comment" do 
+    Comment.all.to_json
+  end
+
 end
 
 
