@@ -21,9 +21,23 @@ class ApplicationController < Sinatra::Base
     Listing.all.to_json(include: [:company, :location])
   end
 
+  patch "/favorites/:listing_id" do
+    begin
+      found_favorite = Favorite.find(params[:listing_id])
+      found_favorite.update(params)
+      if !found_favorite.liked
+        found_favorite.liked = !found_favorite.liked
+        found_favorite.save
+      end
+      found_favorite.to_json
+    rescue
+      { error: "Couldn't find that darn listing" }.to_json
+    end
+  end
 
-
-
+  get "/list-favorites" do
+    Favorite.all.filter { |favorite| favorite.liked}.to_json
+  end
 
 end
 

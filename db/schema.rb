@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2022_08_04_194053) do
   end
 
   create_table "favorites", force: :cascade do |t|
-    t.boolean "false"
+    t.boolean "liked"
     t.integer "listing_id"
   end
 

@@ -133,13 +133,11 @@ while page < 20
 
         jobURL = getURL(job.css('h2').css('a')[0].attributes["href"].value)
 
-        puts (jobURL)
-
 
         newCompany = Company.find_or_create_by(name: company)
         newLocation = Location.find_or_create_by(name: location || "Unknown")
         
-        Listing.create(
+        newListing = Listing.create(
             name: job.css('h2.jobTitle').css('span').text,
             description: description,
             company_id: newCompany.id,
@@ -147,6 +145,11 @@ while page < 20
             experience: experience,
             jobType: jobType,
             url: jobURL
+        )
+
+        Favorite.create(
+            listing_id: newListing.id,
+            liked: false
         )
     end
     page = page + 10
